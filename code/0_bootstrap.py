@@ -49,7 +49,7 @@
 # abfs://[something] and on a CDSW cluster, it will be hdfs://[something]
 
 # Install the requirements
-!pip3 install -r requirements.txt
+#!pip3 install -r requirements.txt
 
 # Create the directories and upload data
 from cmlbootstrap import CMLBootstrap
@@ -61,6 +61,7 @@ import requests
 import xml.etree.ElementTree as ET
 import datetime
 import subprocess
+
 
 run_time_suffix = datetime.datetime.now()
 run_time_suffix = run_time_suffix.strftime("%d%m%Y%H%M%S")
@@ -129,7 +130,9 @@ def run_cmd(cmd, raise_err=True):
 # Attempt to upload the data to the cloud storage, if error,
 # set environment variable indicating the use of local storage
 # for project build
-try:
+
+
+try:  
     dataset_check = run_cmd(
         f'hdfs dfs -test -f {os.environ["STORAGE"]}/{os.environ["DATA_LOCATION"]}/WA_Fn-UseC_-Telco-Customer-Churn-.csv',
         raise_err=False,
@@ -150,15 +153,5 @@ except RuntimeError as error:
     )
     print(error)
 
-# Create the YAML file for tracking model lineage
-# DOCS: https://docs.cloudera.com/machine-learning/cloud/model-governance/topics/ml-registering-lineage-for-model.html
-yaml_text = f"""Churn Model API Endpoint:
-        hive_table_qualified_names:                                             # this is a predefined key to link to training data
-            - "{os.environ["HIVE_DATABASE"]}.{os.environ["HIVE_TABLE"]}@cm"     # the qualifiedName of the hive_table object representing                
-        metadata:                                                               # this is a predefined key for additional metadata
-            query: "select * from historical_data"                              # suggested use case: query used to extract training data
-            training_file: "code/4_train_models.py"                             # suggested use case: training file used
-    """
 
-with open("lineage.yml", "w") as lineage:
-    lineage.write(yaml_text)
+    

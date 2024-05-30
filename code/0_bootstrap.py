@@ -99,8 +99,7 @@ except:
     # create and set storage environment variables
     storage_environment = cml.create_environment_variable({"STORAGE": storage})
     os.environ["STORAGE"] = storage
-    
-  
+     
 # define a function to run commands on HDFS
 def run_cmd(cmd, raise_err=True):
 
@@ -127,7 +126,7 @@ def run_cmd(cmd, raise_err=True):
     return proc
 
 
-# Attempt to upload the data to the cloud storage, if error,
+# Attempt to upload the data to storage (cloud or HDFS), if error,
 # set environment variable indicating the use of local storage
 # for project build
 
@@ -152,6 +151,3 @@ except RuntimeError as error:
         "Could not interact with external data store so local project storage will be used. HDFS DFS command failed with the following error:"
     )
     print(error)
-
-
-    

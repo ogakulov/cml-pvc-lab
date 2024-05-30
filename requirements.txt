@@ -9,4 +9,5 @@ flask==1.1.4
 tqdm==4.62.3
 seaborn==0.11.2
 markupsafe==2.0.1
+azure-storage-file-datalake
 -e .

@@ -49,7 +49,7 @@
 # abfs://[something] and on a CDSW cluster, it will be hdfs://[something]
 
 # Install the requirements
-#!pip3 install -r requirements.txt
+!pip3 install -r requirements.txt
 
 # Create the directories and upload data
 from cmlbootstrap import CMLBootstrap

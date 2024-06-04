@@ -149,8 +149,8 @@ except:
     os.environ["STORAGE"] = storage
     
 
-# Adjusted for operations on Iceberg tables
-spark = SparkSession.builder.appName("PythonSQL").master("local[*]").config("spark.sql.catalog.spark_catalog", "org.apache.iceberg.spark.SparkSessionCatalog").config("spark.hadoop.iceberg.engine.hive.enabled", "true").getOrCreate()
+# Spark session creation
+spark = SparkSession.builder.appName("PythonSQL").master("local[*]").getOrCreate()
 
 # **Note:**
 # Our file isn't big, so running it in Spark local mode is fine but you can add the following config
@@ -229,7 +229,7 @@ if os.environ["STORAGE_MODE"] == "external":
 
             try:
                 # Creating Iceberg table
-                telco_data.write.format("parquet").mode("overwrite").format("iceberg").option("path", path).saveAsTable(
+                telco_data.write.format("parquet").mode("overwrite").option("path", path).saveAsTable(
                     hive_table_fq
                 )
             except AnalysisException as ae:

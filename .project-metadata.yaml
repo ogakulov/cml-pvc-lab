@@ -26,6 +26,11 @@ environment_variables:
     default:
     description: >-
       Full connection string to connect to ADLS Gen2 storage account
+      
+  STORAGE_MODE:
+    default: external
+    description: >-
+      external to use HDFS and Hive tables, internal to use local project files
 
 feature_dependencies:
   - model_metrics

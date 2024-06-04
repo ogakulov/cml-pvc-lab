@@ -113,6 +113,10 @@ from pyspark.sql import SparkSession
 from pyspark.sql.utils import AnalysisException
 from pyspark.sql.types import *
 
+# overrride to external always
+os.environ["STORAGE_MODE"] = "external"
+
+
 # Set the setup variables needed by CMLBootstrap
 HOST = os.getenv("CDSW_API_URL").split(":")[0] + "://" + os.getenv("CDSW_DOMAIN")
 USERNAME = os.getenv("CDSW_PROJECT_URL").split("/")[6]  # args.username  # "vdibia"
@@ -252,7 +256,7 @@ if os.environ["STORAGE_MODE"] == "external":
     except Exception as e:
         print(e)
         print("Continuing AMP in STORAGE_MODE == local")
-        cml.create_environment_variable({"STORAGE_MODE": "local"})
+        #cml.create_environment_variable({"STORAGE_MODE": "local"})
 
 
 # Other ways to access data

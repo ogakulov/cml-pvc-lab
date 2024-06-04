@@ -233,7 +233,7 @@ if os.environ["STORAGE_MODE"] == "external":
 
             try:
                 # Creating Iceberg table
-                telco_data.write.format("parquet").mode("overwrite").option("path", path).saveAsTable(
+                telco_data.write.format("parquet").mode("overwrite").saveAsTable(
                     hive_table_fq
                 )
             except AnalysisException as ae:
